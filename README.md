@@ -19,9 +19,8 @@ I made the project on the FGCU campus. Class was virtual this semseter due to th
 
 ## Demonstration
 
-The markdown is  \!\[Alt text\]\(relative/path/to/img.png) <br />
 ![Sample GIF](https://media.giphy.com/media/S33VHgx5Gq8jJBCEYH/giphy.gif) 
-**Made using GIPHY**
+<br />**Made using GIPHY**
 
 ## Documentation
 
