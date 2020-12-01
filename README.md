@@ -11,7 +11,7 @@ The project was produced independently by me, Katarya Johnson-Williams, with per
 When did you make it? At what level of experience and proficiency were / are you?<br />
 I have been programming for a few years for fun, but this was my first serious programming project. I would consider myself a noivce programmer. I created the project between September 1st, 2020 to November 30th, 2020.
 
-Why did you make it? For fun? For an assignment? How does it relect you as a person?<br />
+Why did you make it? For fun? For an assignment? How does it reflect you as a person?<br />
 This project was created as an assignment for my COP 1500 class. It reflects me as a person because I have been a beekeeper for four years and I am very passionate about honeybees. Additionally, I am a starting the software engineering program at FGCU and I want to learn as much programming as possible.
 
 Where did you make it? What school / class?<br />
