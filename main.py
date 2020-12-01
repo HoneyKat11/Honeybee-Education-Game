@@ -1,11 +1,18 @@
-# Name: Katarya Johnson-Williams
-# Date Started: 9/1/2020
-# Description: This is a honeybee-themed series of mini-games and quizzes!
-# The goal will be to teach users something new about honeybees.
-# Sources: https://rb.gy/uyhalo
+"""Honeybee Integration Project"""
+__author__ = "Katarya Johnson-Williams"
+"""This file is a honeybee-themed series of mini-games and quizzes. The 
+purpose of this project is to teach the user something new about honeybees."""
+"""Date Started: 9/1/2020"""
+"""Date Finished: 11/30/2020"""
+"""Sources: https://rb.gy/uyhalo"""
 
-# A function to check if a user enters a valid yes or no input
+
 def valid_yes_or_no(user_input):
+    """The purpose of this function is to receive user input and determine
+    if the user input is a valid yes (Y) or no (N) response to the prompt.
+    This function is called throughout the program to ensure errors do not
+    occur. Once the user has entered a valid yes (Y) or no (N) response,
+    the valid input is returned."""
     # The initial if statement verifies that user_input is a string. The
     # not operator checks to see if the statement isinstance(user_input,
     # str) is false. However, because the input() function takes a string
@@ -16,46 +23,91 @@ def valid_yes_or_no(user_input):
         # rational operator that ensures the while loop continues until
         # the user_input is equivalent to "Y" or "N". The and operator
         # ensures the while loop is checking for both conditions ("Y" or "N").
-        while user_input != "Y" and user_input != "N":
+        while user_input.capitalize() != "Y" and user_input != "N":
             user_input = input("Please enter Y for Yes or N for No: ")
     # Once user_input is verified to be a string, this elif statement checks
     # to see if user_input is not equivalent to the valid input "Y" or "N".
     # If it is not, a while loop is run.
-    elif user_input != "Y" or user_input != "N":
+    elif user_input.capitalize() != "Y" or user_input != "N":
         # This while loop prompts the user to input a valid "Y" or "N"
         # input and loops until the user inputs one of them. The != is a
         # rational operator that ensures the while loop continues until
         # the user_input is equivalent to "Y" or "N". The and operator
         # ensures the while loop is checking for both conditions ("Y" or "N").
-        while user_input != "Y" and user_input != "N":
+        while user_input.capitalize() != "Y" and user_input != "N":
             user_input = input("Please enter Y for Yes or N for No: ")
     # If the user input is equivalent to "Y" or "N", the function returns
     # the user_input as it entered the function by passing the else failsafe.
     else:
         pass
     # The updated (or not updated) user_input is returned
-    return user_input
+    return user_input.capitalize()
 
 
-# A function to check for a valid answer to a math question
-def math_answer_check(question, answer):
+def math_answer_valid(answer):
+    """The purpose of this function is to prevent errors within the
+    honeybee_math() function by ensuring answers to the math questions
+    are integers. If the user does not provide a valid input, this function
+    will prompt the user until they enter a valid integer input. Once the
+    user enters a valid integer value, the value is returned."""
+    # A try statement tests to ensure the user input is an integer (all math
+    # question answers are integers)
+    try:
+        # If the user input is an integer, it is returned in integer form
+        valid_answer = int(answer)
+        return int(valid_answer)
+    # If the user input cannot be converted into an integer class,
+    # the function restarts with an error reminding the user the answer
+    # needs to be an integer. The program asks for a new answer to pass
+    # to the function before restarting.
+    except ValueError:
+        print("\nOops! Make sure you enter an integer.")
+        new_answer = input("Enter your new answer: ")
+        math_answer_valid(new_answer)
+
+
+def math_answer_retry(question, answer):
+    """The purpose of this function is to give the user the opportunity to
+    re-submit their answer to a given question in the honeybee_math()
+    function until they enter the correct integer answer. The function first
+    ensures the answer is an integer and then compares it to the correct
+    answer to see if the new answer is correct. If not, the user is prompted
+    to enter a new answer. This loop continues until the user enters the
+    correct answer."""
     # The question is reprinted for the user and they are prompted to submit
     # a new answer stored in new_answer
     print(question)
-    new_answer = int(input("Enter in your new answer: "))
-    # If the new answer is correct, the user is congratulated and they
-    # move on to the next question
-    if new_answer == answer:
+    new_answer = input("Enter in your new answer: ")
+    new_answer_check = 0
+    # A try statement is used to check and see if the new answer is a valid
+    # integer input. If so, the value new_answer_check continues to the
+    # if statement.
+    try:
+        new_answer_check = int(new_answer)
+    # If the user input cannot be converted into an integer class,
+    # the function restarts
+    except ValueError:
+        print("\nOops! Please make sure your answer is an integer.")
+        math_answer_retry(question, answer)
+    # An if statement compares new_answer_check to answer (which now holds
+    # the correct answer) and if the answers match then the user is
+    # congratulated. If new_answer still does not match the value of answer
+    # then the function restarts.
+    if new_answer_check == answer:
         print("\nAwesome! That's correct.")
+        return new_answer_check
     # If the user is incorrect, the function starts over so the user has
     # another opportunity to input the correct answer
     else:
         print("\nSorry! Try again.")
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
 
 
-# Math game with a honeybee theme (stored in a function)
 def honeybee_math():
+    """The purpose of this function is to teach the user something new about
+    honeybees by asking a series of honeybee-themed math questions. There are
+    seven total questions and the user has infinite tries to get the correct
+    answer."""
     # The variable score_count will be used to keep track of the score.
     # It is assigned an initial value of 0.
     score_count = 0
@@ -67,11 +119,13 @@ def honeybee_math():
                "\nToday, we still use honeybee products on a daily basis. " \
                "\nAbout how many years have humans been using honeybee " \
                "products as of the year 2020? \n"
-    print(question)
-    answer = int(input())
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (5500 + 2020):
+    if str(answer) == str(5500 + 2020):
         print("Congratulations! 7,520 years was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
@@ -79,9 +133,9 @@ def honeybee_math():
     # argument (assigned earlier) and the answer argument (assigned below)
     # are sent to fulfill the parameters of the function.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 7520
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (7520), one point is
     # added to the score_count variable
     score_count += 1
@@ -96,19 +150,21 @@ def honeybee_math():
                " honey this month, how many ounces are leftover if the " \
                "beekeeper fills as many bottles as possible? \nNote: " \
                "There are 16 ounces in one pound. \n"
-    print(question)
-    answer = int(input())
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (244 % 8):
+    if str(answer) == str(244 % 8):
         print("Awesome job! 4 ounces was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
     # ensure they are able to eventually get the correct answer.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 4
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (4), one point is
     # added to the score_count variable
     score_count += 1
@@ -121,19 +177,21 @@ def honeybee_math():
                "demand. \nA shipping box holds three layers of three by " \
                "three stacks of honey jars. How many jars will fit in " \
                "the box? \n"
-    print(question)
-    answer = input()
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (3 ** 3):
+    if str(answer) == str(3 ** 3):
         print("Great! 27 jars was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
     # ensure they are able to eventually get the correct answer.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 27
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (27), one point is
     # added to the score_count variable
     score_count += 1
@@ -147,19 +205,21 @@ def honeybee_math():
                "to prevent crystallization. \nIf a pantry is 48 ºF, how " \
                "many degrees warmer does it need to be to keep honey from " \
                "crystalizing? \n"
-    print(question)
-    answer = input()
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (60 - 48):
+    if str(answer) == str(60 - 48):
         print("Good work! 12ºF was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
     # ensure they are able to eventually get the correct answer.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 12
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (12), one point is
     # added to the score_count variable
     score_count += 1
@@ -171,19 +231,21 @@ def honeybee_math():
                "day. \nAbout how many eggs does a queen bee lay in an " \
                "hour? \nNote: Round your answer to the nearest whole " \
                "integer. \n"
-    print(question)
-    answer = input()
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (2000 // 24):
+    if str(answer) == str(2000 // 24):
         print("Wonderful! 83 eggs an hour was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
     # ensure they are able to eventually get the correct answer.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 83
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (83), one point is
     # added to the score_count variable
     score_count += 1
@@ -195,23 +257,25 @@ def honeybee_math():
                "frames of bees and a mated, accepted queen. \nNucs are " \
                "used by beekeepers to establish new beehive colonies. " \
                "\nIf a fully developed beehive has ten frames and a " \
-               "beekeeper has eight fully developed hives,\n how many " \
+               "beekeeper has eight fully developed hives,\nhow many " \
                "five-frame nucs can the beekeeper put together? \nKeep " \
                "in mind only five frames can be taken from each hive in " \
                "order for the developed hives to survive.  \n"
-    print(question)
-    answer = input()
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (40 / 5):
+    if str(answer) == str(40 / 5):
         print("That's it! 8 nucs was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
     # ensure they are able to eventually get the correct answer.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 8
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (8), one point is
     # added to the score_count variable
     score_count += 1
@@ -227,19 +291,21 @@ def honeybee_math():
                "population of 50,000 honeybees and 7.5% of the population " \
                "is made up of drones (male bees), \nabout how many drones " \
                "are in the beehive?  \n"
-    print(question)
-    answer = input()
+    answer = input(question)
+    # The user's input is checked to ensure it is an integer by passing
+    # it through the function math_answer_valid()
+    math_answer_valid(answer)
     # If the user answers the question correctly, they are congratulated
     # and will move on to the next question.
-    if answer == (50000 * 0.075):
+    if str(answer) == str(50000 * 0.075):
         print("Congratulations! 3,750 drones was the correct answer!")
     # If the user answers the question incorrectly, they are sent to the
     # function math_answer_check with the question and answer to
     # ensure they are able to eventually get the correct answer.
     else:
-        print("Oops, that's not right! Try again!")
+        print("\nOops, that's not right! Try again!")
         answer = 3750
-        math_answer_check(question, answer)
+        math_answer_retry(question, answer)
     # Once the user comes up with the correct answer (3750), one point is
     # added to the score_count variable
     score_count += 1
@@ -264,11 +330,13 @@ def honeybee_math():
     # terminates with the exit() function
     else:
         print("\nThat's okay! Have a nice day!")
-        exit()
 
 
-# Quiz to evaluate knowledge of honeybees (stored in a function)
 def honeybee_quiz():
+    """The purpose of this function is to teach the user something new about
+    honeybees through a series of honeybee-themed multiple choice questions.
+    There are five total questions and the user has infinite attempts to get
+    each question correct."""
     # The variable score_count will be used to keep track of the score.
     # It is assigned an initial value of 0.
     score_count = 0
@@ -383,12 +451,12 @@ def honeybee_quiz():
     # terminates with the exit() function
     else:
         print("\nThat's okay! Have a nice day!")
-        exit()
 
 
-# Adventure game where you make choices as a worker honeybee (stored in
-# a function)
 def honeybee_adventure():
+    """The purpose of this function is to act as a placeholder for the third
+    activity within this program. The program has not been completed yet, so
+    currently this option is not available to play."""
     print("Time for an adventure!")
     confirm = input("When you're ready to start, press ENTER. ")
     # If the user successfully submits a blank statement the program
@@ -404,8 +472,11 @@ def honeybee_adventure():
         honeybee_adventure()
 
 
-# Function to select a game from a menu
 def menu_select():
+    """The purpose of this function is to prompt the user for the game they
+    want to play. They have three options that redirect them to the above
+    functions. Their options include: honeybee_math(), honeybee_quiz(), and
+    honeybee_adventure()."""
     # The user is prompted for the game they want to play. There are three
     # options: Math, Quiz, and Adventure!
     print("\nPlease enter the number of your selection.")
@@ -431,8 +502,12 @@ def menu_select():
         menu_select()
 
 
-# Function to evaluate player knowledge of honeybees on a scale of 1 to 5
 def get_level():
+    """The purpose of this function is to welcome the user and guide them
+    through the menu options in order to determine what kind of experience
+    they would like. Currently, the user enters their personal level of
+    honeybee knowledge on a scale of 1 to 5, but the program does not react
+    the information in a significant way (yet)."""
     # The user is asked to self-evaluate their knowledge of honeybees
     # on a scale of 1 (very poor) to 5 (expert)
     print("How would you rate your knowledge of honeybees?")
@@ -473,7 +548,6 @@ def get_level():
             # learn more, the program terminates
             elif level_check == "Y" and learn_more == "N":
                 print("Thanks for playing!")
-                exit()
         # If the user did not rate themselves correctly, the
         # evaluation function restarts
         elif level_check == "N":
@@ -505,7 +579,6 @@ def get_level():
             # learn more, the program terminates
             elif level_check == "Y" and learn_more == "N":
                 print("Thanks for playing!")
-                exit()
         # If the user did not rate themselves correctly, the evaluation
         # function restarts
         elif level_check == "N":
